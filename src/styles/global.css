@@ -1,0 +1,14 @@
+@import url('./variables.css');
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 110vh;
+  background-color: black; /*var(--background-color);*/
+  color: var(--text-color);
+}
+
+main {
+  min-height: inherit;
+  color: rgb(23, 195, 7);
+}

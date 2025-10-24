@@ -1,0 +1,22 @@
+:root {
+  --primary-color: #ff5722; /* Main color for the brand */
+  --secondary-color: #ffffff; /* Secondary color for backgrounds */
+  --accent-color: #4caf50; /* Accent color for buttons and highlights */
+  --text-color: #333333; /* Default text color */
+  --heading-color: #222222; /* Color for headings */
+  --border-color: #e0e0e0; /* Color for borders */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Shadow color for elements */
+  
+  --font-family: 'Arial', sans-serif; /* Default font family */
+  --font-size-base: 16px; /* Base font size */
+  --font-size-lg: 18px; /* Large font size */
+  --font-size-sm: 14px; /* Small font size */
+  
+  --spacing-xs: 4px; /* Extra small spacing */
+  --spacing-sm: 8px; /* Small spacing */
+  --spacing-md: 16px; /* Medium spacing */
+  --spacing-lg: 24px; /* Large spacing */
+  --spacing-xl: 32px; /* Extra large spacing */
+  
+  --border-radius: 4px; /* Default border radius for buttons and inputs */
+}
