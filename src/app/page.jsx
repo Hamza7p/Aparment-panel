@@ -1,4 +1,5 @@
 import Categories from '@/components/Home/Category'
+import FeatureProducts from '@/components/Home/FeatureProducts'
 import HeroSlider from '@/components/Home/Slider'
 import React from 'react'
 
@@ -7,6 +8,7 @@ const Home = () => {
     <div className="home-page">
         <HeroSlider />
         <Categories />
+        <FeatureProducts />
         
       <h1>Welcome to the Home Page</h1>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, illo adipisci distinctio deserunt delectus nesciunt eum laborum voluptatem? Doloremque minus quos ab amet blanditiis magni, debitis consequatur? Provident, illum? Doloribus.</p>

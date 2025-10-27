@@ -75,7 +75,7 @@ export default function Categories() {
         variant="h4"
         fontWeight={600}
         mb={6}
-        color={theme.palette.primary.main}
+        color={theme.palette.primary.dark}
       >
         Shop by Category
       </Typography>

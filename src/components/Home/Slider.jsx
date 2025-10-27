@@ -125,7 +125,7 @@ export default function HeroSlider() {
                 </Typography>
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary" //"secondary"
                   size="large"
                   href={slide.link}
                   sx={{
@@ -133,9 +133,30 @@ export default function HeroSlider() {
                     px: 4,
                     py: 1.5,
                     fontWeight: 600,
+                    position: "relative",
+                    overflow: "hidden",
                     boxShadow: `0px 6px 20px ${theme.palette.secondary.main}55`,
+                    zIndex: 1,
+
+                    "&::before": {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: 0,
+                      height: "100%",
+                      backgroundColor: theme.palette.secondary.main,
+                      transition: "width 0.4s ease",
+                      zIndex: -1,
+                    },
+
+                    // hover effect
+                    "&:hover::before": {
+                      width: "100%",
+                    },
+
                     "&:hover": {
-                      backgroundColor: theme.palette.secondary.dark,
+                      color: theme.palette.common.white,
                     },
                   }}
                 >
