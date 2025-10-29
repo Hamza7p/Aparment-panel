@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { fetchProducts } from '../lib/api';
+import { useMutation } from "@tanstack/react-query";
+import { createProduct } from "@/api/useProductAPI";
 
-const useProducts = () => {
+export const useProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,4 +25,11 @@ const useProducts = () => {
   return { products, loading, error };
 };
 
-export default useProducts;
+
+
+export const useCreateProduct = () => {
+  return useMutation({
+    mutationFn: createProduct,
+  });
+};
+
