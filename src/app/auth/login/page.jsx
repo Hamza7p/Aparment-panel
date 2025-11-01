@@ -1,17 +1,18 @@
+"use client"
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your login logic here (e.g., API call)
     // On successful login, redirect to the dashboard
-    router.push('/dashboard');
+    // router.push('/dashboard');
   };
 
   return (

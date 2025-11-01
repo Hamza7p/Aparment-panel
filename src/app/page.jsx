@@ -1,6 +1,7 @@
 import Categories from '@/components/Home/Category'
 import FeatureProducts from '@/components/Home/FeatureProducts'
 import HeroSlider from '@/components/Home/Slider'
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const Home = () => {
