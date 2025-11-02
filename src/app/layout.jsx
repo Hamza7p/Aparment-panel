@@ -5,6 +5,7 @@ import Footer from "../components/Footer.jsx";
 import "@/styles/global.css";
 import { Outfit, Poppins } from "next/font/google";
 import AppProviders from "@/providers/AppProviders.js";
+import ToastNotification from "@/utils/ToastNotificaton.jsx";
 
 // ✅ define font first
 const poppins = Poppins({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
             <main>{children}</main>
             <Footer />
         </AppProviders>
+        <ToastNotification />
       </body>
     </html>
   );
