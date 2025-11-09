@@ -1,27 +1,95 @@
-import { useMutation } from '@tanstack/react-query';
-import { login, logout, sendotp, setPassword, verifyotp } from '../api/auth';
-// import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { RoleName } from '@/enums/RoleName';
+"use client";
+
+import { useMutation } from "@tanstack/react-query";
+import { login, logout, sendotp, setPassword, verifyotp } from "../api/auth";
+import { toast } from "react-toastify";
+import { RoleName } from "@/enums/RoleName";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+
 
 export const useLogin = () => {
-  // const navigate = useNavigate();
+  const router = useRouter();
+  const { loginUser } = useAuth();
 
   return useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      const token = data?.token;
-      const role = data?.user?.role?.name ?? RoleName.customer;
-      const name = data?.user?.name ?? "";
+    onSuccess: (response) => {
+      const token = response?.data?.token;
+      const user = response?.data?.user ?? {};
+      const roleName = user?.role?.[0]?.name ?? RoleName.customer;
 
-      toast.success(`Welcome ${name}`);
-      // navigate("/");
+      loginUser({ ...user, roleName }, token);
+
+      toast.success(`Welcome ${user?.name || " "}`);
+
+      // ✅ Redirect by role
+      if (roleName === RoleName.admin) {
+        router.push("/dashboard");
+      } else {
+        router.push("/shop");
+      }
     },
     onError: (error) => {
       return error;
     },
   });
 };
+
+// export const useLogout = () => {
+//   const router = useRouter();
+
+//   return useMutation({
+//     mutationFn: logout,
+//     onSuccess: () => {
+//       // ✅ Clear storage on logout
+//       localStorage.removeItem("token");
+//       localStorage.removeItem("role");
+//       localStorage.removeItem("user");
+
+//       toast.info("Logged out successfully");
+//       router.push("/login");
+//     },
+//     onError: (error) => {
+//       toast.error("Logout failed");
+//       router.push("/login");
+//     },
+//   });
+// };
+
+// export const useSendOTP = () => {
+//   return useMutation({
+//     mutationFn: sendotp,
+//     onSuccess: (data) => {
+//       console.log("OTP sent:", data);
+//     },
+//     onError: (error) => {
+//       toast.error("Failed to send OTP");
+//     },
+//   });
+// };
+
+// export const useVerifyOTP = () => {
+//   return useMutation({
+//     mutationFn: verifyotp,
+//     onError: (error) => {
+//       toast.error("OTP verification failed");
+//     },
+//   });
+// };
+
+// export const useSetPassword = () => {
+//   return useMutation({
+//     mutationFn: setPassword,
+//     onSuccess: (data) => {
+//       toast.success("Password set successfully");
+//     },
+//     onError: (error) => {
+//       toast.error("Failed to set password");
+//     },
+//   });
+// };
+
 
 export const useLogout = () => {
   // const dispatch = useDispatch();

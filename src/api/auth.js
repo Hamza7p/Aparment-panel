@@ -2,11 +2,12 @@ import axiosBase from "./Base/axiosBase";
 
 export const login = async (data) => {
     try{
-        const response = await axiosBase.post('/accounts/adminsuperuser-login/', data);
+        const response = await axiosBase.post('auth/login', data);
         return response;
     }
     catch(error){
-        // throw error; 
+        console.error(error);
+        throw error; 
     }
 } 
 

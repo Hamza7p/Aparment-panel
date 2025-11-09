@@ -31,7 +31,7 @@ const initialValues = {
 };
 
 export default function LoginPage() {
-  const router = useRouter();
+
   const { mutateAsync: login, isPending } = useLogin();
   const [feedback, setFeedback] = useState({ type: null, message: "" });
 
@@ -42,35 +42,12 @@ export default function LoginPage() {
     try {
       const data = await login({ email: values.email, password: values.password });
 
-      // const token = data?.token;
-      // const role = data?.user?.role ?? "customer";
-      // const name = data?.user?.name ?? "";
-
-      // if (token) {
-      //   Cookies.set("token", token, {
-      //     expires: values.rememberMe ? 7 : undefined,
-      //     secure: process.env.NODE_ENV === "production",
-      //     sameSite: "lax",
-      //   });
-      // }
-
-      // setFeedback({
-      //   type: "success",
-      //   message: name ? `Welcome back, ${name}!` : "Login successful.",
-      // });
-
-      // setTimeout(() => {
-      //   if (role && role.toLowerCase() === "admin") {
-      //     router.replace("/dashboard");
-      //   } else {
-      //     router.replace("/");
-      //   }
-      // }, 600);
 
       resetForm({ values: { ...values, password: "" } });
     } catch (error) {
+      console.log(error);
       const message =
-        error?.response?.data?.message ||
+        error?.response?.data?.errors ||
         error?.message ||
         "Unable to sign in. Please try again.";
 
