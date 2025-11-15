@@ -1,14 +1,14 @@
 "use client";
-import { getRole, getToken, getUser, removeRole, removeToken, removeUser } from "@/utils/methods";
+import { getRole, getToken, getUser, removeRole, removeToken, removeUser, setRole, setToken, setUser } from "@/utils/methods";
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUserState] = useState(null);
+  const [role, setRoleState] = useState(null);
+  const [token, setTokenState] = useState(null);
 
 
   useEffect(() => {
@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUser && storedToken) {
         startTransition(() => {
-            setUser(JSON.parse(storedUser));
-            setRole(storedRole);
-             setToken(storedToken);
+            setUserState(JSON.parse(storedUser));
+            setRoleState(storedRole);
+            setTokenState(storedToken);
         })
     }
   }, []);
@@ -29,9 +29,9 @@ export const AuthProvider = ({ children }) => {
   const loginUser = (userData, tokenValue) => {
     const roleName = userData?.roleName || "customer";
 
-    setUser(userData);
-    setRole(roleName);
-    setToken(tokenValue);
+    setUserState(userData);
+    setRoleState(roleName);
+    setTokenState(tokenValue);
 
     setUser(JSON.stringify(userData));
     setRole(roleName);
@@ -40,9 +40,9 @@ export const AuthProvider = ({ children }) => {
 
 
   const logoutUser = () => {
-    setUser(null);
-    setRole(null);
-    setToken(null);
+    setUserState(null);
+    setRoleState(null);
+    setTokenState(null);
 
     removeUser();
     removeRole();

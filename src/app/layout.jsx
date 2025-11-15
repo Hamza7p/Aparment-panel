@@ -32,9 +32,7 @@ export default function RootLayout({ children }) {
       >
         <AppProviders>
         <AuthProvider>
-            <Navbar />
             <main>{children}</main>
-            <Footer />
           </AuthProvider>
         </AppProviders>
         <ToastNotification />

@@ -76,13 +76,13 @@ export default function Navbar() {
           </Box>
 
           {/* Mobile Menu Button */}
-          <IconButton
+          {/* <IconButton
             className="menu-button"
             color="inherit"
             onClick={() => setMobileOpen(true)}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
 
