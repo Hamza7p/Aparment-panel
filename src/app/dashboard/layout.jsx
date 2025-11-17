@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }) {
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar open={mobileOpen} onClose={handleCloseSidebar} collapsed={collapsed} onToggleCollapse={handleToggleCollapse} />
 
-      <Box sx={{ flex: 1, ml: { md: `${drawerWidth}px` } }}>
+      <Box sx={{ flex: 1, overflowX: "hidden", transition: "width .25s ease", width: { md: `calc(100% - ${drawerWidth}px)` } }}>
         <NavBar onOpenSidebar={handleOpenSidebar} title="Store Admin" />
 
         <Box component="main" sx={{ p: { xs: 2, md: 3 }, transition: "margin .25s ease" }}>

@@ -21,6 +21,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { dashboardPages } from "@/utils/pages";
 
 const DRAWER_WIDTH = 260;
 const COLLAPSE_WIDTH = 72;
@@ -40,27 +41,36 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const content = (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 2, py: 1.5 }}>
+        
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          {!collapsed && 
+          <>
           <Box sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: theme.palette.primary.main, color: theme.palette.primary.contrastText, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700 }}>S</Box>
-          {!collapsed && <Box>
+          <Box>
             <Box component="span" sx={{ fontWeight: 700 }}>Store</Box>
             <Box component="div" sx={{ fontSize: 12, color: theme.palette.text.secondary }}>Admin</Box>
-          </Box>}
+          </Box>
+          </>
+          }
         </Box>
 
-        <IconButton size="small" onClick={onToggleCollapse} sx={{ ml: 1 }}>
+        <IconButton size="small" onClick={onToggleCollapse} sx={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
           {collapsed ? <MenuIcon /> : <ChevronLeftIcon />}
         </IconButton>
+
       </Box>
 
       <Divider sx={{ mx: collapsed ? 1 : 2 }} />
 
       <List sx={{ flex: 1, px: collapsed ? 0.5 : 1 }}>
-        {navItems.map((item) => {
+        {dashboardPages.map((item) => {
           const active = path === item.href || path?.startsWith(item.href + "/");
           return (
-            <Link key={item.href} href={item.href} passHref legacyBehavior>
-              <a style={{ textDecoration: "none", color: "inherit" }}>
+            <Link 
+              key={item.href} 
+              href={item.href} passHref 
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
                 <ListItemButton
                   selected={active}
                   sx={{
@@ -75,28 +85,17 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                     }),
                   }}
                 >
-                  <Tooltip title={collapsed ? item.title : ""} placement="right" disableHoverListener={!collapsed}>
+                  <Tooltip title={collapsed ? item.name : ""} placement="right" disableHoverListener={!collapsed}>
                     <ListItemIcon sx={{ minWidth: 0, mr: collapsed ? 0 : 1.5, color: theme.palette.text.primary }}>
                       {item.icon}
                     </ListItemIcon>
                   </Tooltip>
-                  {!collapsed && <ListItemText primary={item.title} />}
+                  {!collapsed && <ListItemText primary={item.name} />}
                 </ListItemButton>
-              </a>
             </Link>
           );
         })}
       </List>
-
-      <Divider sx={{ mx: collapsed ? 1 : 2 }} />
-      {!collapsed && (
-        <Box sx={{ p: 2 }}>
-          <Box sx={{ fontSize: 12, color: theme.palette.text.secondary }}>Quick actions</Box>
-          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-            <Box component="button" style={{ cursor: "pointer" }} className="btn">+ New product</Box>
-          </Box>
-        </Box>
-      )}
     </Box>
   );
 

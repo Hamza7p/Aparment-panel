@@ -37,7 +37,7 @@ export default function NavBar({ onOpenSidebar, title = "Dashboard" }) {
   const open = Boolean(anchorEl);
 
   return (
-    <AppBar position="sticky" color="transparent" elevation={0} sx={{ zIndex: (t) => t.zIndex.drawer + 1 }}>
+    <AppBar position="sticky" color="transparent" elevation={0} sx={{ zIndex: (t) => t.zIndex.drawer + 1}}>
       <Toolbar sx={{ gap: 2, py: 1.25 }}>
         {/* Mobile menu icon */}
         <IconButton
