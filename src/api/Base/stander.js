@@ -2,9 +2,9 @@ import axiosBase from "./Base/axiosBase";
 
 
 
-export const index = async () => {
+export const index = async (route = '/') => {
     try{
-        const response = await axiosBase.get('//');
+        const response = await axiosBase.get(route);
         return response;
     }
     catch(error){
@@ -12,9 +12,9 @@ export const index = async () => {
     }
 } 
 
-export const store = async (data) => {
+export const store = async (route = '/', data) => {
     try{
-        const response = await axiosBase.post('//', data);
+        const response = await axiosBase.post(route, data);
         return response;
     }
     catch(error){
@@ -22,9 +22,9 @@ export const store = async (data) => {
     }
 } 
 
-export const show = async (id, data) => {
+export const show = async (route = '/', id, data) => {
     try{
-        const response = await axiosBase.get(`//${id}/`, data);
+        const response = await axiosBase.get(`${route}/${id}/`, data);
         return response;
     }
     catch(error){
@@ -32,9 +32,9 @@ export const show = async (id, data) => {
     }
 } 
 
-export const update = async (id, data) => {
+export const update = async (route = '/', id, data) => {
     try{
-        const response = await axiosBase.put(`//${id}/`, data);
+        const response = await axiosBase.put(`${route}/${id}/`, data);
         return response;
     }
     catch(error){
@@ -42,9 +42,9 @@ export const update = async (id, data) => {
     }
 } 
 
-export const deleteFn = async (id) => {
+export const remove = async (route = '/', id) => {
     try{
-        const response = await axiosBase.delete(`//${id}/`);
+        const response = await axiosBase.delete(`${route}/${id}/`);
         return response;
     }
     catch(error){

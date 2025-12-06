@@ -64,7 +64,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
       <List sx={{ flex: 1, px: collapsed ? 0.5 : 1 }}>
         {dashboardPages.map((item) => {
-          const active = path === item.href || path?.startsWith(item.href + "/");
+          const active = path === item.href ; // || path?.startsWith(item.href + "/");
           return (
             <Link 
               key={item.href} 

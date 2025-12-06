@@ -1,9 +1,10 @@
 import axios from "axios";
 import { getToken } from "@/utils/methods";
 import { toast } from 'react-toastify';
+import { baseUrl } from "./apis";
 
 const axiosBase = axios.create({
-    baseURL:  'http://127.0.0.1:8000/api/', // your base url here
+    baseURL:  baseUrl, // your base url here
     headers: {
         'Content-Type': 'application/json',
     },

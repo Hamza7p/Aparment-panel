@@ -50,7 +50,7 @@ export default function Navbar() {
         <Toolbar className="toolbar">
           {/* Logo */}
           <Typography variant="h6" className="logo">
-            <Link href="/">Logo</Link>
+            <Link href="/">{ "StreetWear".toUpperCase() }</Link>
           </Typography>
 
           {/* Desktop Menu */}
