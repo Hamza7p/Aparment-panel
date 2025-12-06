@@ -1,5 +1,4 @@
-import axiosBase from "./Base/axiosBase";
-
+import axiosBase from "./axiosBase";
 
 
 export const index = async (route = '/') => {
