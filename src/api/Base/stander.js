@@ -23,7 +23,7 @@ export const store = async (route = '/', data) => {
 
 export const show = async (route = '/', id, data) => {
     try{
-        const response = await axiosBase.get(`${route}/${id}/`, data);
+        const response = await axiosBase.get(router.id, data);
         return response;
     }
     catch(error){

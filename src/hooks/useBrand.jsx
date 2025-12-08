@@ -1,3 +1,4 @@
+"use client"
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { index, store, show, update, remove } from '../api/Base/stander';
 import { brandsApi } from '../api/Base/apis';
@@ -6,8 +7,8 @@ import { brandsApi } from '../api/Base/apis';
 export const useBrands = () => {
   return useQuery({
     queryKey: ['brands'],
-    queryFn: index(brandsApi),
-    select: (data) => data?.data,
+    queryFn: () => index(brandsApi),
+    select: (res) => res?.data?.data
   });
 };
 
