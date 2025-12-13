@@ -10,12 +10,16 @@ import {
   Box,
   CircularProgress,
   Avatar,
+  Stack,
 } from "@mui/material";
+
+import { CloudUpload } from "@mui/icons-material";
 
 import { useAddBrand, useUpdateBrand } from "@/hooks/useBrand";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useEffect, useState } from "react";
 
 import { uploadMedia } from "@/api/media";
 
@@ -30,6 +34,10 @@ const BrandDialog = ({ open, onClose, brand }) => {
   const addBrand = useAddBrand();
   const updateBrand = useUpdateBrand();
 
+  const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(brand?.media?.url || null);
+  const [mediumId, setMediumId] = useState(brand?.media?.id || null);
+
   const {
     register,
     handleSubmit,
@@ -40,34 +48,56 @@ const BrandDialog = ({ open, onClose, brand }) => {
     defaultValues: {
       name: brand?.name || "",
       note: brand?.note || "",
-      media_url: brand?.media?.url || "",
     },
   });
 
-  const onSubmit = async (data) => {
-    let medium_id = brand?.media?.id ?? null;
-
-    // If new image selected
-    if (data.media_file?.[0]) {
-      const uploaded = await uploadMedia(data.media_file[0]);
-      medium_id = uploaded.id;
+  useEffect(() => {
+    if (open) {
+      reset({
+        name: brand?.name || "",
+        note: brand?.note || "",
+      });
+      setPreviewUrl(brand?.media?.url || null);
+      setMediumId(brand?.media?.id || null);
     }
+  }, [open, brand, reset]);
 
+  /* =========================
+     IMAGE UPLOAD HANDLER
+  ========================= */
+  const handleFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const uploaded = await uploadMedia(file);
+      setMediumId(uploaded.id);
+      setPreviewUrl(uploaded.url);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  /* =========================
+     FORM SUBMIT
+  ========================= */
+  const onSubmit = (data) => {
     const payload = {
       name: data.name,
       note: data.note,
-      medium_id,
+      medium_id: mediumId,
     };
 
     if (isEdit) {
       updateBrand.mutate(
         { id: brand.id, data: payload },
-        { onSuccess: () => onClose() }
+        { onSuccess: onClose }
       );
     } else {
       addBrand.mutate(
         { data: payload },
-        { onSuccess: () => onClose() }
+        { onSuccess: onClose }
       );
     }
   };
@@ -76,31 +106,47 @@ const BrandDialog = ({ open, onClose, brand }) => {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{isEdit ? "Edit Brand" : "Add Brand"}</DialogTitle>
 
-      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
-          label="Name"
-          {...register("name")}
-          error={!!errors.name}
-          helperText={errors.name?.message}
-        />
-
-        <TextField
-          label="Note"
-          multiline
-          rows={3}
-          {...register("note")}
-        />
-
-        {/* IMAGE PREVIEW */}
-        <Box sx={{ mt: 1 }}>
-          <Avatar
-            src={brand?.media?.url}
-            sx={{ width: 90, height: 90, borderRadius: 2 }}
+      <DialogContent>
+        <Stack spacing={2} mt={1}>
+          <TextField
+            label="Name"
+            {...register("name")}
+            error={!!errors.name}
+            helperText={errors.name?.message}
           />
-        </Box>
 
-        {/* FILE UPLOAD */}
-        <input type="file" {...register("media_file")} />
+          <TextField
+            label="Note"
+            multiline
+            rows={3}
+            {...register("note")}
+          />
+
+          {/* IMAGE PREVIEW */}
+          <Box display="flex" alignItems="center" gap={2}>
+            <Avatar
+              src={previewUrl}
+              sx={{ width: 90, height: 90, borderRadius: 2 }}
+            />
+
+            <Button
+              component="label"
+              variant="outlined"
+              startIcon={<CloudUpload />}
+              disabled={uploading}
+            >
+              Upload Image
+              <input
+                hidden
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </Button>
+
+            {uploading && <CircularProgress size={22} />}
+          </Box>
+        </Stack>
       </DialogContent>
 
       <DialogActions>
