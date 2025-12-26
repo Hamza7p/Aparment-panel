@@ -1,7 +1,4 @@
-// src/app/layout.jsx
 
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer.jsx";
 import "@/styles/global.css";
 import { Outfit, Poppins } from "next/font/google";
 import AppProviders from "@/providers/AppProviders.js";

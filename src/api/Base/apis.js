@@ -1,3 +1,3 @@
 export const baseUrl = 'http://localhost:8000/api/';
 
-export const brandsApi = 'brands/';
+export const brandsApi = 'auth/';
