@@ -17,17 +17,18 @@ export const useLogin = () => {
     onSuccess: (response) => {
       const token = response?.data?.token;
       const user = response?.data?.user ?? {};
-      const roleName = user?.role?.[0]?.name ?? RoleName.customer;
+      const roleName = user?.role?.[0]?.name ?? RoleName.user;
 
       loginUser({ ...user, roleName }, token);
 
-      toast.success(`Welcome ${user?.name || " "}`);
+      toast.success(`Welcome ${user?.first_name || " "}`);
 
       // ✅ Redirect by role
       if (roleName === RoleName.admin) {
         router.push("/dashboard");
-      } else {
-        router.push("/shop");
+      }
+      else {
+        toast.error("You are not authorized to access this page");
       }
     },
     onError: (error) => {

@@ -17,8 +17,8 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "E-commerce Store",
-  description: "Shop premium shoes and backpacks online.",
+  title: "Apartment Dashboard",
+  description: "Apartment Dashboard for managing apartments.",
 };
 
 export default function RootLayout({ children }) {

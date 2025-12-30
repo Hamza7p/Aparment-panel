@@ -25,7 +25,7 @@ import { loginSchema } from "@/validation/authSchemas";
 import { useLogin } from "@/hooks/useAuth";
 
 const initialValues = {
-  email: "",
+  phone: "",
   password: "",
   rememberMe: true,
 };
@@ -40,7 +40,7 @@ export default function LoginPage() {
     setFeedback({ type: null, message: "" });
 
     try {
-      const data = await login({ email: values.email, password: values.password });
+      const data = await login({ phone: values.phone, password: values.password });
 
 
       resetForm({ values: { ...values, password: "" } });
@@ -68,15 +68,7 @@ export default function LoginPage() {
           <Form noValidate>
             <FormCard
               title="Sign in to your account"
-              subtitle="Enter your details below to continue shopping."
-              footer={
-                <Typography variant="body2" textAlign="center">
-                  Don&apos;t have an account?{" "}
-                  <MuiLink component={Link} href="/auth/signup" fontWeight={600} color="primary">
-                    Sign up
-                  </MuiLink>
-                </Typography>
-              }
+              subtitle="Enter your details below to continue dashboard."
             >
               <Stack spacing={3}>
                 <Collapse in={Boolean(feedback.type)}>
@@ -85,7 +77,7 @@ export default function LoginPage() {
                   ) : null}
                 </Collapse>
 
-                <InputField name="email" label="Email Or Username" type="text" autoComplete="email" />
+                <InputField name="phone" label="Enter your phone" type="text" autoComplete="phone" />
                 <PasswordField name="password" label="Password" autoComplete="current-password" />
 
                 <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} justifyContent="space-between">
